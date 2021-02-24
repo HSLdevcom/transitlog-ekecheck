@@ -9,6 +9,8 @@ import org.apache.pulsar.shade.com.google.gson.JsonArray
 import org.apache.pulsar.shade.com.google.gson.JsonElement
 import org.apache.pulsar.shade.com.google.gson.JsonObject
 import java.io.File
+import java.time.Instant
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
 
@@ -35,7 +37,7 @@ object WebsiteController {
                         trainData.values.forEach {
                             val jsonObject = JsonObject()
                             jsonObject.addProperty("trainNumber",it.trainNumber)
-                            jsonObject.addProperty("ekeDate", Date(it.ekeDate).toString())
+                            jsonObject.addProperty("ekeDate", LocalDate.from(Instant.ofEpochMilli(it.ekeDate)).toString())
                             jsonObject.addProperty("topicPart",it.topicPart)
                             jsonArray.add(jsonObject)
                         }

@@ -16,10 +16,10 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test-junit"))
-    //implementation ("fi.hsl:transitdata-common:1.3.18")
+    implementation ("fi.hsl:transitdata-common:1.3.19")
     implementation ("io.github.microutils:kotlin-logging:1.6.22")
     implementation ("io.ktor:ktor:1.5.1")
-    implementation (fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
+    //implementation (fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
     implementation("io.ktor:ktor-server-netty:1.5.1")
 }
 
