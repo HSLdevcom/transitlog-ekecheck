@@ -37,7 +37,7 @@ object WebsiteController {
                         trainData.values.forEach {
                             val jsonObject = JsonObject()
                             jsonObject.addProperty("trainNumber",it.trainNumber)
-                            jsonObject.addProperty("ekeDate", LocalDate.from(Instant.ofEpochMilli(it.ekeDate)).toString())
+                            jsonObject.addProperty("ekeDate", Instant.ofEpochMilli(it.ekeDate).toString())
                             jsonObject.addProperty("topicPart",it.topicPart)
                             jsonArray.add(jsonObject)
                         }
