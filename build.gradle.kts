@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.4.21"
+    id("com.github.johnrengelman.shadow") version "6.0.0"
 }
 
 group = "fi.hsl"
@@ -13,6 +14,11 @@ repositories {
     maven(url = "https://dl.bintray.com/hsldevcom/maven")
 }
 
+tasks {
+    named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
+        archiveFileName.set("${baseName}.${extension}")
+    }
+}
 
 dependencies {
     testImplementation(kotlin("test-junit"))
