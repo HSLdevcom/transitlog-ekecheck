@@ -10,17 +10,18 @@ import org.apache.pulsar.client.api.Consumer
 import org.apache.pulsar.client.api.Message
 import org.apache.pulsar.client.api.MessageId
 
+const val TOPIC_PREFIX = "eke/v1/sm5/"
 
 class MessageHandler(val context: PulsarApplicationContext) : IMessageHandler {
 
     private val consumer: Consumer<ByteArray> = context.consumer!!
-
     private val log = KotlinLogging.logger {}
     override fun handleMessage(received: Message<Any>) {
         try {
             if (TransitdataSchema.hasProtobufSchema(received, TransitdataProperties.ProtobufSchema.EkeSummary)) {
                 val ekeSummary = Eke.EkeSummary.parseFrom(received.data)
-                DataHolder.putEkeSummary(ekeSummary)
+                val ekeSummaryDTO = EkeSummaryDTO(ekeSummary.topicPart.replace(TOPIC_PREFIX,"").split("/")[0], ekeSummary.topicPart, ekeSummary.ekeDate)
+                DataHolder.putEkeSummary(ekeSummaryDTO)
             }
             ack(received.messageId)
         }

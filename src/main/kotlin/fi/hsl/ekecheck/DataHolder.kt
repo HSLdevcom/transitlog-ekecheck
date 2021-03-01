@@ -3,16 +3,16 @@ package fi.hsl.ekecheck
 import fi.hsl.common.transitdata.proto.Eke
 
 object DataHolder {
-    val dataMap = mutableMapOf<Int, MutableMap<String, Eke.EkeSummary>>()
+    val dataMap = mutableMapOf<String, MutableMap<String, EkeSummaryDTO>>()
 
-    fun getTrainData(trainNumber : Int) : MutableMap<String, Eke.EkeSummary>?{
-        return dataMap[trainNumber]
+    fun getTrainData(unitNumber : String) : MutableMap<String, EkeSummaryDTO>?{
+        return dataMap[unitNumber]
     }
 
-    fun putEkeSummary(ekeSummary : Eke.EkeSummary){
-        if(dataMap[ekeSummary.trainNumber] == null){
-            dataMap[ekeSummary.trainNumber] = mutableMapOf()
+    fun putEkeSummary(ekeSummary : EkeSummaryDTO){
+        if(dataMap[ekeSummary.unitNumber] == null){
+            dataMap[ekeSummary.unitNumber] = mutableMapOf()
         }
-        dataMap[ekeSummary.trainNumber]!![ekeSummary.topicPart] = ekeSummary
+        dataMap[ekeSummary.unitNumber]!![ekeSummary.topic] = ekeSummary
     }
 }

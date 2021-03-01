@@ -6,13 +6,8 @@ import io.ktor.http.content.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import org.apache.pulsar.shade.com.google.gson.JsonArray
-import org.apache.pulsar.shade.com.google.gson.JsonElement
 import org.apache.pulsar.shade.com.google.gson.JsonObject
-import java.io.File
 import java.time.Instant
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.util.*
 
 object WebsiteController {
 
@@ -27,18 +22,18 @@ object WebsiteController {
     }
 
     fun Route.customerRouting(){
-        route("/api/train/{trainNumber}"){
+        route("/api/train/{unitNumber}"){
             get{
                 val jsonArray = JsonArray()
-                val trainNumber = call.parameters["trainNumber"]?.toInt()
-                if(trainNumber != null){
-                    val trainData = DataHolder.getTrainData(trainNumber)
+                val unitNumber = call.parameters["unitNumber"]
+                if(unitNumber != null){
+                    val trainData = DataHolder.getTrainData(unitNumber)
                     if(trainData != null && trainData.isNotEmpty()) {
                         trainData.values.forEach {
                             val jsonObject = JsonObject()
-                            jsonObject.addProperty("trainNumber",it.trainNumber)
-                            jsonObject.addProperty("ekeDate", Instant.ofEpochMilli(it.ekeDate).toString())
-                            jsonObject.addProperty("topicPart",it.topicPart)
+                            jsonObject.addProperty("unitNumber",it.unitNumber)
+                            jsonObject.addProperty("ekeDate", Instant.ofEpochMilli(it.timestamp).toString())
+                            jsonObject.addProperty("topicPart",it.topic)
                             jsonArray.add(jsonObject)
                         }
                     }
