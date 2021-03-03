@@ -40,8 +40,8 @@ jobs:
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: hsldevcom/transitlog-ekecheck
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ secrets.TRANSITDATA_DOCKERHUB_USER }}
+          password: ${{ secrets.TRANSITDATA_DOCKERHUB_TOKEN }}
           tags: develop
   build-release-docker-image:
     needs: test
@@ -58,7 +58,7 @@ jobs:
       - name: Build and publish release Docker image
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: hsldevcom/transitdata-eke-sink
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          name: hsldevcom/transitlog-ekecheck
+          username: ${{ secrets.TRANSITDATA_DOCKERHUB_USER }}
+          password: ${{ secrets.TRANSITDATA_DOCKERHUB_TOKEN }}
           tag_semver: true
