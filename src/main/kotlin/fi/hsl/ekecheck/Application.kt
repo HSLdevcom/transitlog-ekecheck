@@ -32,9 +32,3 @@ fun main(args: Array<String>) {
         log.error("Exception at main", e)
     }
 }
-
-@Suppress("unused") // Referenced in application.conf
-@kotlin.jvm.JvmOverloads
-fun Application.module(testing: Boolean = false) {
-    registerCustomerRoutes()
-}

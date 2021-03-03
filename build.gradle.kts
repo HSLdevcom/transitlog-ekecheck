@@ -22,7 +22,7 @@ tasks {
 
 val jar by tasks.getting(Jar::class){
     manifest{
-        attributes["Main-Class"] = "fi.hsl.transitdata.eke_sink.MainKt"
+        attributes["Main-Class"] = "fi.hsl.ekecheck.ApplicationKt"
         attributes["Implementation-Version"] = project.version
     }
 }
