@@ -7,6 +7,7 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import org.apache.pulsar.shade.com.google.gson.JsonArray
 import org.apache.pulsar.shade.com.google.gson.JsonObject
+import java.io.File
 import java.time.Instant
 
 object WebsiteController {
@@ -15,8 +16,11 @@ object WebsiteController {
     fun Application.registerCustomerRoutes() {
         routing{
             customerRouting()
-            static("/"){
-                resources("static")
+            static("/") {
+                defaultResource("index.html")
+            }
+            static("js"){
+                resources("js")
             }
         }
     }
