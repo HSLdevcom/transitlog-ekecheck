@@ -11,7 +11,14 @@ version = "1.0-SNAPSHOT"
 repositories {
     mavenCentral()
     jcenter()
-    maven(url = "https://dl.bintray.com/hsldevcom/maven")
+    maven{
+        name = "GitHub transitdata-common"
+        url = uri("https://maven.pkg.github.com/HSLdevcom/transitdata-common")
+        credentials  {
+            username = System.getenv("GITHUB_ACTOR")
+            password = System.getenv("GITHUB_TOKEN")
+        }
+    }
 }
 
 tasks {
@@ -30,7 +37,7 @@ val jar by tasks.getting(Jar::class){
 
 dependencies {
     testImplementation(kotlin("test-junit"))
-    implementation ("fi.hsl:transitdata-common:1.3.19")
+    implementation ("fi.hsl:transitdata-common:1.3.22")
     implementation ("io.github.microutils:kotlin-logging:1.6.22")
     implementation ("io.ktor:ktor:1.5.1")
     //implementation (fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
