@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     kotlin("jvm") version "1.4.21"
     id("com.github.johnrengelman.shadow") version "6.0.0"
@@ -13,7 +11,7 @@ repositories {
     jcenter()
     maven{
         name = "GitHub transitdata-common"
-        url = uri("https://maven.pkg.github.com/HSLdevcom/transitdata-common")
+        url = uri("https://maven.pkg.github.com/hsldevcom/transitdata-common")
         credentials  {
             username = System.getenv("GITHUB_ACTOR")
             password = System.getenv("GITHUB_TOKEN")
@@ -48,6 +46,6 @@ tasks.test {
     useJUnit()
 }
 
-tasks.withType<KotlinCompile>() {
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
 }
