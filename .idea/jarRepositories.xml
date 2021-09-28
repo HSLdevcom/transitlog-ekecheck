@@ -31,5 +31,10 @@
       <option name="name" value="GitHub transitdata-common" />
       <option name="url" value="https://maven.pkg.github.com/hsldevcom/transitdata-common" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="GitHub transitdata-common" />
+      <option name="name" value="GitHub transitdata-common" />
+      <option name="url" value="https://maven.pkg.github.com/hsldevcom/*" />
+    </remote-repository>
   </component>
 </project>
