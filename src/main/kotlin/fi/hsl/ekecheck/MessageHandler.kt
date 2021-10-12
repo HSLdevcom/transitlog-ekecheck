@@ -12,11 +12,18 @@ import org.apache.pulsar.client.api.MessageId
 
 const val TOPIC_PREFIX = "eke/v1/sm5/"
 
-class MessageHandler(val context: PulsarApplicationContext) : IMessageHandler {
-
+class MessageHandler(context: PulsarApplicationContext) : IMessageHandler {
     private val consumer: Consumer<ByteArray> = context.consumer!!
     private val log = KotlinLogging.logger {}
+
+    private var messageCounter = 0;
+
     override fun handleMessage(received: Message<Any>) {
+        if (messageCounter++ >= 10000) {
+            log.info { "Handled 10000 messages, everything seems fine" }
+            messageCounter = 0
+        }
+
         try {
             if (TransitdataSchema.hasProtobufSchema(received, TransitdataProperties.ProtobufSchema.EkeSummary)) {
                 val ekeSummary = Eke.EkeSummary.parseFrom(received.data)
