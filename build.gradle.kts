@@ -41,7 +41,9 @@ dependencies {
     implementation ("io.github.microutils:kotlin-logging:2.0.11")
 
     implementation ("io.ktor:ktor:1.6.3")
-    implementation("io.ktor:ktor-server-netty:1.6.3")
+    implementation("io.ktor:ktor-server-netty:1.6.4")
+
+    implementation("org.json:json:20210307")
 
     //implementation (fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
 }
