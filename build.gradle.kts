@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.4.21"
+    kotlin("jvm") version "1.5.21"
     id("com.github.johnrengelman.shadow") version "6.0.0"
 }
 
@@ -11,10 +11,10 @@ repositories {
     jcenter()
     maven{
         name = "GitHub transitdata-common"
-        url = uri("https://maven.pkg.github.com/hsldevcom/transitdata-common")
+        url = uri("https://maven.pkg.github.com/hsldevcom/*")
         credentials  {
-            username = System.getenv("GITHUB_ACTOR")
-            password = System.getenv("GITHUB_TOKEN")
+            username = (project.findProperty("github.user") ?: System.getenv("GITHUB_ACTOR")).toString()
+            password = (project.findProperty("github.token") ?: System.getenv("GITHUB_TOKEN")).toString()
         }
     }
 }
@@ -34,12 +34,18 @@ val jar by tasks.getting(Jar::class){
 
 
 dependencies {
-    testImplementation(kotlin("test-junit"))
-    implementation ("fi.hsl:transitdata-common:1.3.22")
-    implementation ("io.github.microutils:kotlin-logging:1.6.22")
-    implementation ("io.ktor:ktor:1.5.1")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.5.21")
+
+    implementation ("fi.hsl:transitdata-common:1.3.25")
+
+    implementation ("io.github.microutils:kotlin-logging:2.0.11")
+
+    implementation ("io.ktor:ktor:1.6.3")
+    implementation("io.ktor:ktor-server-netty:1.6.4")
+
+    implementation("org.json:json:20210307")
+
     //implementation (fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
-    implementation("io.ktor:ktor-server-netty:1.5.1")
 }
 
 tasks.test {

@@ -5,9 +5,8 @@ import io.ktor.http.*
 import io.ktor.http.content.*
 import io.ktor.response.*
 import io.ktor.routing.*
-import org.apache.pulsar.shade.com.google.gson.JsonArray
-import org.apache.pulsar.shade.com.google.gson.JsonObject
-import java.io.File
+import org.json.JSONArray
+import org.json.JSONObject
 import java.time.Instant
 
 object WebsiteController {
@@ -27,22 +26,23 @@ object WebsiteController {
 
     fun Route.customerRouting(){
         route("/api/train/{unitNumber}"){
-            get{
-                val jsonArray = JsonArray()
+            get {
+                val jsonArray = JSONArray()
                 val unitNumber = call.parameters["unitNumber"]
-                if(unitNumber != null){
+                if (unitNumber != null) {
                     val trainData = DataHolder.getTrainData(unitNumber)
-                    if(trainData != null && trainData.isNotEmpty()) {
+                    if (trainData != null && trainData.isNotEmpty()) {
                         trainData.values.forEach {
-                            val jsonObject = JsonObject()
-                            jsonObject.addProperty("unitNumber",it.unitNumber)
-                            jsonObject.addProperty("ekeDate", Instant.ofEpochMilli(it.timestamp).toString())
-                            jsonObject.addProperty("topicPart",it.topic)
-                            jsonArray.add(jsonObject)
+                            val jsonObject = JSONObject()
+                            jsonObject.put("unitNumber", it.unitNumber)
+                            jsonObject.put("ekeDate", Instant.ofEpochMilli(it.timestamp).toString())
+                            jsonObject.put("topicPart", it.topic)
+
+                            jsonArray.put(jsonObject)
                         }
                     }
                 }
-                call.respondText(jsonArray.toString(), ContentType.parse("application/json" ))
+                call.respondText(jsonArray.toString(4), ContentType.parse("application/json" ))
             }
         }
     }
